@@ -13,7 +13,9 @@ import constantsTheme from '@constants/index';
 import * as theme from '@theme/theme.json';
 import * as mapping from '@theme/mapping.json';
 
-import Quiz from '@screens/Quiz';
+// import Quiz from '@screens/Quiz';
+import Home from '@screens/Home';
+
 import {StatusBar} from 'react-native';
 
 const App = () => {
@@ -21,7 +23,7 @@ const App = () => {
 
   return (
     <>
-      <Quiz />
+      <Home />
       <StatusBar
         backgroundColor={themeContext['color-basic-800']}
         barStyle="light-content"
