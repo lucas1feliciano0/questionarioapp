@@ -13,7 +13,9 @@ import {
 } from './styles';
 
 const Quiz: React.FC = () => {
-  const [selectedAlternative, setSelectedAlternative] = useState(0);
+  const [selectedAlternative, setSelectedAlternative] = useState<
+    number | undefined
+  >();
   const [showAnswer, setShowAnswer] = useState(false);
 
   const quantity = 10;

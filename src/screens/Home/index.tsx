@@ -1,6 +1,13 @@
 import React from 'react';
 import {Button, Divider, Icon, ListItem, useTheme} from '@ui-kitten/components';
 import {RFValue} from 'react-native-responsive-fontsize';
+import {useNavigation} from '@react-navigation/core';
+
+import {StackNavigationProp} from '@react-navigation/stack';
+
+import {RootStackParamList} from '@routes/MainStack';
+
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 import CardBackground from '@assets/svg/card-bg.svg';
 
@@ -22,6 +29,7 @@ type PLACEHOLDER_ITEM = {
 };
 
 const Home: React.FC = () => {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
   const theme = useTheme();
 
   const PLACEHOLDER_DATA: PLACEHOLDER_ITEM[] = new Array(4).fill({
@@ -29,6 +37,10 @@ const Home: React.FC = () => {
   });
 
   const renderQuizAccessory = () => <Button size="tiny">OPEN</Button>;
+
+  function handleNavigateToQuiz() {
+    navigation.navigate('Quiz');
+  }
 
   const renderQuiz = ({
     item,
@@ -57,7 +69,9 @@ const Home: React.FC = () => {
           accessoryLeft={props => <Icon {...props} name="settings-outline" />}
         />
       </Header>
-      <InitializeNewQuizButton backgroundColor={theme['color-primary-default']}>
+      <InitializeNewQuizButton
+        onPress={handleNavigateToQuiz}
+        backgroundColor={theme['color-primary-default']}>
         <NewQuizButtonBackground>
           <CardBackground />
         </NewQuizButtonBackground>
