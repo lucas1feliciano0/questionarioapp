@@ -1,6 +1,10 @@
 import React from 'react';
 import * as eva from '@eva-design/eva';
-import {ApplicationProvider, IconRegistry} from '@ui-kitten/components';
+import {
+  ApplicationProvider,
+  IconRegistry,
+  useTheme,
+} from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import {ThemeProvider} from 'styled-components/native';
 
@@ -9,18 +13,35 @@ import constantsTheme from '@constants/index';
 import * as theme from '@theme/theme.json';
 import * as mapping from '@theme/mapping.json';
 
-import Home from '@screens/Home';
+import Quiz from '@screens/Quiz';
+import {StatusBar} from 'react-native';
 
-export default () => (
-  <>
-    <IconRegistry icons={EvaIconsPack} />
-    <ApplicationProvider
-      {...eva}
-      theme={{...eva.light, ...theme}}
-      customMapping={mapping}>
-      <ThemeProvider theme={constantsTheme}>
-        <Home />
-      </ThemeProvider>
-    </ApplicationProvider>
-  </>
-);
+const App = () => {
+  const themeContext = useTheme();
+
+  return (
+    <>
+      <Quiz />
+      <StatusBar
+        backgroundColor={themeContext['color-basic-800']}
+        barStyle="light-content"
+      />
+    </>
+  );
+};
+
+export default () => {
+  return (
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider
+        {...eva}
+        theme={{...eva.dark, ...theme}}
+        customMapping={mapping}>
+        <ThemeProvider theme={constantsTheme}>
+          <App />
+        </ThemeProvider>
+      </ApplicationProvider>
+    </>
+  );
+};

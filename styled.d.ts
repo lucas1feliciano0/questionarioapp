@@ -10,6 +10,13 @@ declare module 'styled-components' {
         large: number;
       };
 
+      BORDER_RADIUS: {
+        small: number;
+        medium: number;
+        big: number;
+        large: number;
+      };
+
       FONT_SIZE: {
         small: number;
         medium: number;

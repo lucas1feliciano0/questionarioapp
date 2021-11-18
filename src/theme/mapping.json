@@ -1,4 +1,5 @@
 {
+    "components": {},
     "strict": {
         "text-font-family": "Lemon-Regular",
 
@@ -14,22 +15,22 @@
         "text-heading-4-font-weight": "500",
         "text-heading-4-font-family": "Lemon-Bold",
         
-        "text-heading-5-font-weight": "500",
-        "text-heading-5-font-family": "Lemon-Bold",
+        "text-heading-5-font-weight": "300",
+        "text-heading-5-font-family": "Lemon-Medium",
         
-        "text-heading-6-font-weight": "500",
-        "text-heading-6-font-family": "Lemon-Bold",
+        "text-heading-6-font-weight": "100",
+        "text-heading-6-font-family": "Lemon-Regular",
         
-        "text-subtitle-1-font-weight": "300",
-        "text-subtitle-1-font-family": "Lemon-Medium",
+        "text-subtitle-1-font-weight": "100",
+        "text-subtitle-1-font-family": "Lemon-Regular",
 
-        "text-subtitle-2-font-weight": "300",
-        "text-subtitle-2-font-family": "Lemon-Medium",
+        "text-subtitle-2-font-weight": "100",
+        "text-subtitle-2-font-family": "Lemon-Regular",
         
         "text-paragraph-1-font-weight": "100",
         "text-paragraph-1-font-family": "Lemon-Regular",
         
-        "text-paragraph-1-font-weight": "100",
+        "text-paragraph-2-font-weight": "100",
         "text-paragraph-2-font-family": "Lemon-Regular",
         
         "text-caption-1-font-weight": "100",
