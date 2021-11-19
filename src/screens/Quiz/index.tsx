@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {RouteProp, useNavigation} from '@react-navigation/core';
 import Markdown from 'react-native-markdown-display';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -49,23 +49,33 @@ const Quiz: React.FC<IProps> = ({route}) => {
 
   const quantity = route.params.quantity;
 
-  function renderAlternatives(
-    incorrectAnswers: string[],
-    correctAnswer: string,
-  ) {
-    const alternatives = [
-      ...incorrectAnswers.map(item => ({title: item, correct: false})),
-      {title: correctAnswer, correct: true},
-    ];
+  const alternatives = useMemo(() => {
+    if (activeQuestion) {
+      const formattedAlternatives = [
+        ...activeQuestion.incorrect_answers.map(item => ({
+          title: item,
+          correct: false,
+        })),
+        {title: activeQuestion.correct_answer, correct: true},
+      ];
+      const shuffledAlternatives = formattedAlternatives.sort(
+        () => 0.5 - Math.random(),
+      );
+      return shuffledAlternatives;
+    }
+  }, [activeQuestion]);
 
-    return alternatives.map((item, index) => (
-      <Alternative
-        title={item.title}
-        key={index}
-        correct={item.correct}
-        showAnswer={showAnswer}
-      />
-    ));
+  function renderAlternatives() {
+    if (alternatives) {
+      return alternatives.map((item, index) => (
+        <Alternative
+          title={item.title}
+          key={index}
+          correct={item.correct}
+          showAnswer={showAnswer}
+        />
+      ));
+    }
   }
 
   function handleNextQuestion() {
@@ -149,10 +159,7 @@ const Quiz: React.FC<IProps> = ({route}) => {
                   setSelectedAlternative(index);
                 }
               }}>
-              {renderAlternatives(
-                activeQuestion.incorrect_answers,
-                activeQuestion.correct_answer,
-              )}
+              {renderAlternatives()}
             </AlternativeContainer>
           </QuestionContainer>
           <Footer>

@@ -32,21 +32,23 @@ const Alternative: React.FC<IProps> = ({
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      transform: [{translateX: offset.value}],
+      transform: [
+        correct ? {translateY: offset.value} : {translateX: offset.value},
+      ],
     };
   });
 
   useEffect(() => {
     if (showAnswer) {
       offset.value = withSequence(
-        withTiming(!correct ? 10 : 0, {
-          duration: 50,
+        withTiming(10, {
+          duration: correct ? 150 : 50,
         }),
-        withTiming(!correct ? -10 : 0, {
-          duration: 50,
+        withTiming(-10, {
+          duration: correct ? 150 : 50,
         }),
         withTiming(0, {
-          duration: 50,
+          duration: correct ? 150 : 50,
         }),
       );
     }
