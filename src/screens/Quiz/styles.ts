@@ -9,6 +9,7 @@ import {
 import AcceptModalComponent from '@components/AcceptModal';
 import QuestionIndicatorComponent from '@components/QuestionIndicator';
 import AlternativeComponent from '@components/Alternative';
+import LoadingModalComponent from '@components/LoadingModal';
 
 export const Container = styled(Layout)`
   flex: 1;
@@ -58,3 +59,5 @@ export const Footer = styled(Layout).attrs({
 `;
 
 export const AcceptModal = styled(AcceptModalComponent)``;
+
+export const LoadingModal = styled(LoadingModalComponent)``;

@@ -62,7 +62,7 @@ const QuizConfiguration: React.FC = () => {
       <AcceptModal
         visible={showResume}
         title="Resume"
-        subtitle={`${quantity} questões`}
+        subtitle={`${quantity} questions`}
         onCancel={() => setShowResume(false)}
         onAccept={handleNavigateToQuiz}
       />

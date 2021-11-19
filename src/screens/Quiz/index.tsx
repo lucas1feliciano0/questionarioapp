@@ -3,8 +3,6 @@ import {RouteProp, useNavigation} from '@react-navigation/core';
 import Markdown from 'react-native-markdown-display';
 import {StackNavigationProp} from '@react-navigation/stack';
 
-import api from '@services/api';
-
 import {RootStackParamList} from '@routes/MainStack';
 
 type QuizScreenRouteProp = RouteProp<RootStackParamList, 'Quiz'>;
@@ -19,16 +17,14 @@ import {
   Container,
   Footer,
   Header,
+  LoadingModal,
   QuestionContainer,
   QuestionIndicator,
   Text,
 } from './styles';
+import useFetchQuestions, {Question} from '@hooks/useFetchQuestions';
+import useBackListener from '@hooks/useBackListener';
 
-type Question = {
-  question: string;
-  correct_answer: string;
-  incorrect_answers: string[];
-};
 interface IProps {
   route: QuizScreenRouteProp;
 }
@@ -40,7 +36,6 @@ const Quiz: React.FC<IProps> = ({route}) => {
     number | undefined
   >();
 
-  const [questions, setQuestions] = useState<Question[]>([]);
   const [activeQuestion, setActiveQuestion] = useState<Question | null>(null);
   const [activeQuestionIndex, setActiveQuestionIndex] = useState<number>(0);
 
@@ -48,6 +43,8 @@ const Quiz: React.FC<IProps> = ({route}) => {
   const [showQuitModal, setShowQuitModal] = useState<boolean>(false);
 
   const quantity = route.params.quantity;
+
+  const {loading, questions} = useFetchQuestions(quantity);
 
   const alternatives = useMemo(() => {
     if (activeQuestion) {
@@ -103,21 +100,26 @@ const Quiz: React.FC<IProps> = ({route}) => {
     navigation.navigate('Home');
   }
 
+  useBackListener(() => {
+    setShowQuitModal(true);
+    return true;
+  });
+
   useEffect(() => {
-    async function loadQuestions() {
-      const response = await api.get(`?amount=${quantity}`);
-      const questionsResponse: Question[] = response.data.results;
-
-      setQuestions(questionsResponse);
-      setActiveQuestion(questionsResponse[0]);
-      setActiveQuestionIndex(0);
+    if (questions && !activeQuestion) {
+      setActiveQuestion(questions[0]);
     }
-
-    loadQuestions();
-  }, [quantity]);
+  }, [activeQuestion, questions]);
 
   return (
     <Container>
+      <LoadingModal
+        visible={loading}
+        title="Loading questions"
+        subtitle="Fetching..."
+        iconName="loader-outline"
+      />
+
       <AcceptModal
         visible={showQuitModal}
         title="Want to leave the quiz?"
