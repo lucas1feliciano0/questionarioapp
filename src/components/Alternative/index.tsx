@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {useTheme} from '@ui-kitten/components';
 import Animated, {
   useSharedValue,
@@ -6,8 +6,10 @@ import Animated, {
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
+import Markdown from 'react-native-markdown-display';
 
 import {Container} from './styles';
+import {ThemeContext} from 'styled-components/native';
 
 interface IProps {
   title: string;
@@ -23,6 +25,7 @@ const Alternative: React.FC<IProps> = ({
   disabled,
   ...rest
 }) => {
+  const constantsTheme = useContext(ThemeContext);
   const theme = useTheme();
 
   const offset = useSharedValue(0);
@@ -55,12 +58,25 @@ const Alternative: React.FC<IProps> = ({
         correct={correct}
         showAnswer={showAnswer}
         activeColor={theme['color-primary-default']}
-        inactiveColor={theme['color-basic-1100']}
+        inactiveColor={theme['color-basic-600']}
         correctColor={theme['color-success-700']}
         wrongColor={theme['color-danger-700']}
         disabled={disabled}
         {...rest}>
-        {title}
+        {evaProps => (
+          <Markdown
+            {...evaProps}
+            style={{
+              body: {
+                color: 'white',
+                fontSize: constantsTheme.constants.FONT_SIZE.medium,
+                fontFamily: 'Lemon-Regular',
+                marginLeft: constantsTheme.constants.PADDING.medium,
+              },
+            }}>
+            {title}
+          </Markdown>
+        )}
       </Container>
     </Animated.View>
   );

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {RouteProp} from '@react-navigation/core';
+import Markdown from 'react-native-markdown-display';
 
 import api from '@services/api';
 
@@ -107,7 +108,16 @@ const Quiz: React.FC<IProps> = ({route}) => {
       {activeQuestion && (
         <>
           <QuestionContainer>
-            <Text category="h6">{activeQuestion.question}</Text>
+            <Markdown
+              style={{
+                body: {
+                  color: 'white',
+                  fontSize: 20,
+                  fontFamily: 'Lemon-Medium',
+                },
+              }}>
+              {activeQuestion.question}
+            </Markdown>
             <AlternativeContainer
               selectedIndex={selectedAlternative}
               onChange={index => {

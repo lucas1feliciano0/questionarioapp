@@ -28,7 +28,7 @@ export const Container = styled(Radio)<{
   checked?: boolean;
   correct?: boolean;
 }>`
-  padding: ${props => props.theme.constants.PADDING.big}px;
+  padding: ${props => props.theme.constants.PADDING.medium}px;
   border-width: 2px;
   border-radius: ${props => props.theme.constants.BORDER_RADIUS.large}px;
 
