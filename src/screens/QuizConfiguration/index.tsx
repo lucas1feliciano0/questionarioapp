@@ -49,6 +49,10 @@ const QuizConfiguration: React.FC = () => {
     });
   }
 
+  function handleGoBack() {
+    navigation.goBack();
+  }
+
   function handleOpenResume() {
     setShowResume(true);
   }
@@ -57,13 +61,16 @@ const QuizConfiguration: React.FC = () => {
     <Container>
       <AcceptModal
         visible={showResume}
-        quantity={quantity}
+        title="Resume"
+        subtitle={`${quantity} questões`}
         onCancel={() => setShowResume(false)}
         onAccept={handleNavigateToQuiz}
       />
       <Header>
         <Text category="h5">Start new quiz</Text>
-        <Button appearance="outline">Cancel</Button>
+        <Button onPress={handleGoBack} appearance="outline">
+          Cancel
+        </Button>
       </Header>
 
       <Title category="h6" appearance="hint">

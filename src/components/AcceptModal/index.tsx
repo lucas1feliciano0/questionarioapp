@@ -14,22 +14,30 @@ import {
 } from './styles';
 
 interface IProps {
+  title: string;
   visible: boolean;
-  quantity: string;
-  onAccept: (quantity: string) => void;
+  onAccept: () => void;
   onCancel: () => void;
+  subtitle?: string;
+  iconName?: string;
+  acceptText?: string;
+  cancelText?: string;
 }
 
 const AcceptModal: React.FC<IProps> = ({
+  title,
+  subtitle,
   visible,
-  quantity,
   onAccept,
   onCancel,
+  iconName = 'star',
+  acceptText = 'Start',
+  cancelText = 'Cancel',
 }) => {
   const theme = useTheme();
 
   function handleAccept() {
-    onAccept(quantity);
+    onAccept();
   }
 
   return (
@@ -37,22 +45,18 @@ const AcceptModal: React.FC<IProps> = ({
       <Backdrop>
         <Container>
           <Header>
-            <Text>Resume</Text>
+            <Text>{title}</Text>
           </Header>
           <QuestionResumeContainer>
-            <Icon
-              fill={theme['color-basic-500']}
-              name="star"
-              animation="zoom"
-            />
-            <Text appearance="hint">{quantity} questions</Text>
+            <Icon fill={theme['color-basic-500']} name={iconName} />
+            {subtitle && <Text appearance="hint">{subtitle}</Text>}
           </QuestionResumeContainer>
           <Footer>
             <Button onPress={handleAccept} appearance="filled">
-              Start
+              {acceptText}
             </Button>
             <Button onPress={onCancel} appearance="outline" status="danger">
-              Cancel
+              {cancelText}
             </Button>
           </Footer>
         </Container>

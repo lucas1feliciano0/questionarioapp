@@ -6,6 +6,7 @@ import {
   RadioGroup,
 } from '@ui-kitten/components';
 
+import AcceptModalComponent from '@components/AcceptModal';
 import QuestionIndicatorComponent from '@components/QuestionIndicator';
 import AlternativeComponent from '@components/Alternative';
 
@@ -55,3 +56,5 @@ export const Footer = styled(Layout).attrs({
   padding: ${props => props.theme.constants.PADDING.big}px
     ${props => props.theme.constants.PADDING.medium}px;
 `;
+
+export const AcceptModal = styled(AcceptModalComponent)``;

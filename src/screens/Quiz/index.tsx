@@ -1,14 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {RouteProp} from '@react-navigation/core';
+import {RouteProp, useNavigation} from '@react-navigation/core';
 import Markdown from 'react-native-markdown-display';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import api from '@services/api';
 
 import {RootStackParamList} from '@routes/MainStack';
 
-type ChatScreenRouteProp = RouteProp<RootStackParamList, 'Quiz'>;
+type QuizScreenRouteProp = RouteProp<RootStackParamList, 'Quiz'>;
+
+type QuizScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Quiz'>;
 
 import {
+  AcceptModal,
   Alternative,
   AlternativeContainer,
   Button,
@@ -26,10 +30,12 @@ type Question = {
   incorrect_answers: string[];
 };
 interface IProps {
-  route: ChatScreenRouteProp;
+  route: QuizScreenRouteProp;
 }
 
 const Quiz: React.FC<IProps> = ({route}) => {
+  const navigation = useNavigation<QuizScreenNavigationProp>();
+
   const [selectedAlternative, setSelectedAlternative] = useState<
     number | undefined
   >();
@@ -39,6 +45,7 @@ const Quiz: React.FC<IProps> = ({route}) => {
   const [activeQuestionIndex, setActiveQuestionIndex] = useState<number>(0);
 
   const [showAnswer, setShowAnswer] = useState(false);
+  const [showQuitModal, setShowQuitModal] = useState<boolean>(false);
 
   const quantity = route.params.quantity;
 
@@ -68,6 +75,8 @@ const Quiz: React.FC<IProps> = ({route}) => {
       setActiveQuestionIndex(nextQuestionIndex);
       setShowAnswer(false);
       setSelectedAlternative(undefined);
+    } else {
+      navigation.navigate('Home');
     }
   }
 
@@ -77,6 +86,11 @@ const Quiz: React.FC<IProps> = ({route}) => {
     } else {
       setShowAnswer(true);
     }
+  }
+
+  function handleQuizQuiz() {
+    setShowQuitModal(false);
+    navigation.navigate('Home');
   }
 
   useEffect(() => {
@@ -94,12 +108,22 @@ const Quiz: React.FC<IProps> = ({route}) => {
 
   return (
     <Container>
+      <AcceptModal
+        visible={showQuitModal}
+        title="Want to leave the quiz?"
+        iconName="log-out-outline"
+        acceptText="Yes, leave now"
+        onCancel={() => setShowQuitModal(false)}
+        onAccept={handleQuizQuiz}
+      />
       <Header>
         <Text category="h5">
           Question {activeQuestionIndex + 1}
           <Text category="s1">/{quantity}</Text>
         </Text>
-        <Button appearance="outline">Quit</Button>
+        <Button onPress={() => setShowQuitModal(true)} appearance="outline">
+          Quit
+        </Button>
       </Header>
       <QuestionIndicator
         activeIndicator={activeQuestionIndex}
