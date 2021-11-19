@@ -39,7 +39,7 @@ const Home: React.FC = () => {
   const renderQuizAccessory = () => <Button size="tiny">OPEN</Button>;
 
   function handleNavigateToQuiz() {
-    navigation.navigate('Quiz');
+    navigation.navigate('QuizConfiguration');
   }
 
   const renderQuiz = ({

@@ -7,11 +7,15 @@ import {
 } from '@react-navigation/stack';
 
 import Home from '@screens/Home';
+import QuizConfiguration from '@screens/QuizConfiguration';
 import Quiz from '@screens/Quiz';
 
 export type RootStackParamList = {
   Home: undefined;
-  Quiz: undefined;
+  QuizConfiguration: undefined;
+  Quiz: {
+    quantity: string;
+  };
 };
 
 const {Navigator, Screen} = createStackNavigator<RootStackParamList>();
@@ -30,6 +34,7 @@ const MainStack: React.FC = () => {
     <NavigationContainer>
       <Navigator detachInactiveScreens={false} screenOptions={screenOptions}>
         <Screen name="Home" component={Home} />
+        <Screen name="QuizConfiguration" component={QuizConfiguration} />
         <Screen name="Quiz" component={Quiz} />
       </Navigator>
     </NavigationContainer>

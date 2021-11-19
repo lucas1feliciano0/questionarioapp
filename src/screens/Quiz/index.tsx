@@ -1,4 +1,9 @@
 import React, {useState} from 'react';
+import {RouteProp} from '@react-navigation/core';
+
+import {RootStackParamList} from '@routes/MainStack';
+
+type ChatScreenRouteProp = RouteProp<RootStackParamList, 'Quiz'>;
 
 import {
   Alternative,
@@ -12,13 +17,18 @@ import {
   Text,
 } from './styles';
 
-const Quiz: React.FC = () => {
+interface IProps {
+  route: ChatScreenRouteProp;
+}
+
+const Quiz: React.FC<IProps> = ({route}) => {
   const [selectedAlternative, setSelectedAlternative] = useState<
     number | undefined
   >();
   const [showAnswer, setShowAnswer] = useState(false);
 
-  const quantity = 10;
+  const quantity = route.params.quantity;
+
   return (
     <Container>
       <Header>
