@@ -13,12 +13,14 @@ interface IProps {
   title: string;
   showAnswer: boolean;
   correct?: boolean;
+  disabled?: boolean;
 }
 
 const Alternative: React.FC<IProps> = ({
   title,
   showAnswer,
   correct,
+  disabled,
   ...rest
 }) => {
   const theme = useTheme();
@@ -56,6 +58,7 @@ const Alternative: React.FC<IProps> = ({
         inactiveColor={theme['color-basic-1100']}
         correctColor={theme['color-success-700']}
         wrongColor={theme['color-danger-700']}
+        disabled={disabled}
         {...rest}>
         {title}
       </Container>
