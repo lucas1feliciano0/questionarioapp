@@ -15,6 +15,7 @@ export const Indicator = styled(Layout).attrs({
 })<{active?: boolean; activeColor?: string}>`
   flex: 1;
   height: 4px;
+  min-width: 3px;
 
   margin: 0 ${props => props.theme.constants.PADDING.small}px;
   border-radius: ${props => props.theme.constants.BORDER_RADIUS.large}px;

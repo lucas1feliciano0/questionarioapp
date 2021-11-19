@@ -7,6 +7,7 @@ import {
 } from '@ui-kitten/components';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import {ThemeProvider} from 'styled-components/native';
+import {Platform, StatusBar, UIManager} from 'react-native';
 
 import constantsTheme from '@constants/index';
 
@@ -15,7 +16,11 @@ import * as mapping from '@theme/mapping.json';
 
 import MainStack from '@routes/MainStack';
 
-import {StatusBar} from 'react-native';
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 
 const App = () => {
   const themeContext = useTheme();

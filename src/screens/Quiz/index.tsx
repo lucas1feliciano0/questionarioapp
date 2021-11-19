@@ -24,6 +24,7 @@ import {
 } from './styles';
 import useFetchQuestions, {Question} from '@hooks/useFetchQuestions';
 import useBackListener from '@hooks/useBackListener';
+import {LayoutAnimation} from 'react-native';
 
 interface IProps {
   route: QuizScreenRouteProp;
@@ -78,6 +79,8 @@ const Quiz: React.FC<IProps> = ({route}) => {
   function handleNextQuestion() {
     const nextQuestionIndex = activeQuestionIndex + 1;
     if (nextQuestionIndex < questions.length) {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+
       setActiveQuestion(questions[nextQuestionIndex]);
       setActiveQuestionIndex(nextQuestionIndex);
       setShowAnswer(false);
