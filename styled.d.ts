@@ -4,10 +4,12 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     constants: {
       PADDING: {
+        tiny: number;
         small: number;
         medium: number;
         big: number;
         large: number;
+        giant: number;
       };
 
       BORDER_RADIUS: {

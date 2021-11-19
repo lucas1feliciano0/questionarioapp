@@ -1,10 +1,12 @@
 import {RFValue} from 'react-native-responsive-fontsize';
 
 export const PADDING = {
+  tiny: RFValue(4),
   small: RFValue(8),
   medium: RFValue(12),
   big: RFValue(16),
   large: RFValue(20),
+  giant: RFValue(32),
 };
 
 export const BORDER_RADIUS = {

@@ -86,7 +86,7 @@ const Quiz: React.FC<IProps> = ({route}) => {
       setShowAnswer(false);
       setSelectedAlternative(undefined);
     } else {
-      navigation.navigate('Home');
+      navigation.navigate('QuizResume');
     }
   }
 

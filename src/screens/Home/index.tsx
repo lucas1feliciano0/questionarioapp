@@ -81,7 +81,7 @@ const Home: React.FC = () => {
         <TextContainer>
           <Title category="h4">Play and win!</Title>
           <Text category="s2" appearance="hint">
-            start a new quiz by clicking here
+            click here to start a new quiz
           </Text>
         </TextContainer>
       </InitializeNewQuizButton>

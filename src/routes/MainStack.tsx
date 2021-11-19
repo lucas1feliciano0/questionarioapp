@@ -9,6 +9,7 @@ import {
 import Home from '@screens/Home';
 import QuizConfiguration from '@screens/QuizConfiguration';
 import Quiz from '@screens/Quiz';
+import QuizResume from '@screens/QuizResume';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -16,6 +17,7 @@ export type RootStackParamList = {
   Quiz: {
     quantity: string;
   };
+  QuizResume: undefined;
 };
 
 const {Navigator, Screen} = createStackNavigator<RootStackParamList>();
@@ -36,6 +38,7 @@ const MainStack: React.FC = () => {
         <Screen name="Home" component={Home} />
         <Screen name="QuizConfiguration" component={QuizConfiguration} />
         <Screen name="Quiz" component={Quiz} />
+        <Screen name="QuizResume" component={QuizResume} />
       </Navigator>
     </NavigationContainer>
   );
