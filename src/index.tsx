@@ -1,3 +1,5 @@
+import 'react-native-gesture-handler';
+
 import React from 'react';
 import * as eva from '@eva-design/eva';
 import {
@@ -8,11 +10,15 @@ import {
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import {ThemeProvider} from 'styled-components/native';
 import {Platform, StatusBar, UIManager} from 'react-native';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 
 import constantsTheme from '@constants/index';
 
 import * as theme from '@theme/theme.json';
 import * as mapping from '@theme/mapping.json';
+
+import store, {persistor} from './store';
 
 import MainStack from '@routes/MainStack';
 
@@ -26,13 +32,15 @@ const App = () => {
   const themeContext = useTheme();
 
   return (
-    <>
-      <MainStack />
-      <StatusBar
-        backgroundColor={themeContext['color-basic-800']}
-        barStyle="light-content"
-      />
-    </>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <MainStack />
+        <StatusBar
+          backgroundColor={themeContext['color-basic-800']}
+          barStyle="light-content"
+        />
+      </PersistGate>
+    </Provider>
   );
 };
 

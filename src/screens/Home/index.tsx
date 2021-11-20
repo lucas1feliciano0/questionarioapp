@@ -2,6 +2,9 @@ import React from 'react';
 import {Button, Divider, Icon, ListItem, useTheme} from '@ui-kitten/components';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {useNavigation} from '@react-navigation/core';
+import {useSelector} from 'react-redux';
+
+import {RootState} from '@store/ducks';
 
 import {StackNavigationProp} from '@react-navigation/stack';
 
@@ -31,6 +34,8 @@ type PLACEHOLDER_ITEM = {
 const Home: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const theme = useTheme();
+
+  const name = useSelector((state: RootState) => state.user.name);
 
   const PLACEHOLDER_DATA: PLACEHOLDER_ITEM[] = new Array(4).fill({
     description: 'Description for Item',
@@ -67,7 +72,7 @@ const Home: React.FC = () => {
     <Container>
       <Header>
         <Text category="h6" appearance="hint">
-          Welcome, <Text category="h6">Lucas</Text>
+          Welcome, <Text category="h6">{name}</Text>
         </Text>
         <Button
           onPress={handleNavigateToSettings}

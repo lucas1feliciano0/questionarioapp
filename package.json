@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@eva-design/eva": "^2.1.1",
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/stack": "^6.0.11",
     "@ui-kitten/components": "^5.1.1",
@@ -28,6 +29,10 @@
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.9.0",
     "react-native-svg": "^12.1.1",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "redux-persist": "^6.0.0",
+    "reduxsauce": "^1.2.1",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
