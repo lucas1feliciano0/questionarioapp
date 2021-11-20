@@ -6,6 +6,7 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack';
 
+import Introduction from '@screens/Introduction';
 import Home from '@screens/Home';
 import Settings from '@screens/Settings';
 import QuizConfiguration from '@screens/QuizConfiguration';
@@ -13,6 +14,7 @@ import Quiz from '@screens/Quiz';
 import QuizResume from '@screens/QuizResume';
 
 export type RootStackParamList = {
+  Introduction: undefined;
   Home: undefined;
   Settings: undefined;
   QuizConfiguration: undefined;
@@ -37,6 +39,7 @@ const MainStack: React.FC = () => {
   return (
     <NavigationContainer>
       <Navigator detachInactiveScreens={false} screenOptions={screenOptions}>
+        <Screen name="Introduction" component={Introduction} />
         <Screen name="Home" component={Home} />
         <Screen name="Settings" component={Settings} />
         <Screen name="QuizConfiguration" component={QuizConfiguration} />
