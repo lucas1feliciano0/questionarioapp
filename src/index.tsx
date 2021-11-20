@@ -12,6 +12,7 @@ import {ThemeProvider} from 'styled-components/native';
 import {Platform, StatusBar, UIManager} from 'react-native';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
+import Toast from 'react-native-toast-message';
 
 import constantsTheme from '@constants/index';
 
@@ -39,6 +40,7 @@ const App = () => {
           backgroundColor={themeContext['color-basic-800']}
           barStyle="light-content"
         />
+        <Toast />
       </PersistGate>
     </Provider>
   );

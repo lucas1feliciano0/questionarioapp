@@ -39,9 +39,12 @@ export const Header = styled(Layout).attrs({
     ${props => props.theme.constants.PADDING.medium}px;
 `;
 
-export const Text = styled(EvaText)``;
+export const Text = styled(EvaText)`
+  text-align: center;
+  width: 70%;
+`;
 
-export const QuestionResumeContainer = styled(Layout).attrs({level: '2'})`
+export const IconContainer = styled(Layout).attrs({level: '2'})`
   width: ${RFValue(120)}px;
   height: ${RFValue(120)}px;
   border-radius: ${props => props.theme.constants.BORDER_RADIUS.large}px;
@@ -54,8 +57,8 @@ export const Button = styled(EvaButton)`
 `;
 
 export const Icon = styled(EvaIcon)`
-  width: ${RFValue(50)}px;
-  height: ${RFValue(50)}px;
+  width: ${RFValue(60)}px;
+  height: ${RFValue(60)}px;
   margin-bottom: ${props => props.theme.constants.PADDING.small}px;
 `;
 

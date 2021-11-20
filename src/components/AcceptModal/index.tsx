@@ -9,7 +9,7 @@ import {
   Header,
   Icon,
   Modal,
-  QuestionResumeContainer,
+  IconContainer,
   Text,
 } from './styles';
 
@@ -47,10 +47,10 @@ const AcceptModal: React.FC<IProps> = ({
           <Header>
             <Text>{title}</Text>
           </Header>
-          <QuestionResumeContainer>
+          <IconContainer>
             <Icon fill={theme['color-basic-500']} name={iconName} />
-            {subtitle && <Text appearance="hint">{subtitle}</Text>}
-          </QuestionResumeContainer>
+          </IconContainer>
+          {subtitle && <Text appearance="hint">{subtitle}</Text>}
           <Footer>
             <Button onPress={handleAccept} appearance="filled">
               {acceptText}

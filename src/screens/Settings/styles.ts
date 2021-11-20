@@ -6,6 +6,8 @@ import {
   Button as EvaButton,
 } from '@ui-kitten/components';
 
+import AcceptModalComponent from '@components/AcceptModal';
+
 export const Container = styled(Layout)`
   flex: 1;
   padding: ${props => props.theme.constants.PADDING.big}px
@@ -35,4 +37,8 @@ export const InputContainer = styled.View`
 `;
 export const Input = styled(EvaInput)``;
 
-export const Button = styled(EvaButton)``;
+export const Button = styled(EvaButton)`
+  margin-bottom: ${props => props.theme.constants.PADDING.big}px;
+`;
+
+export const AcceptModal = styled(AcceptModalComponent)``;
