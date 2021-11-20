@@ -42,6 +42,10 @@ const Home: React.FC = () => {
     navigation.navigate('QuizConfiguration');
   }
 
+  function handleNavigateToSettings() {
+    navigation.navigate('Settings');
+  }
+
   const renderQuiz = ({
     item,
     index,
@@ -63,9 +67,10 @@ const Home: React.FC = () => {
     <Container>
       <Header>
         <Text category="h6" appearance="hint">
-          Bem-vindo, <Text category="h6">Lucas</Text>
+          Welcome, <Text category="h6">Lucas</Text>
         </Text>
         <Button
+          onPress={handleNavigateToSettings}
           accessoryLeft={props => <Icon {...props} name="settings-outline" />}
         />
       </Header>

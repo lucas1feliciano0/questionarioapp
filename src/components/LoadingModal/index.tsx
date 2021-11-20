@@ -1,5 +1,12 @@
 import React, {useEffect} from 'react';
 import {useTheme} from '@ui-kitten/components';
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming,
+} from 'react-native-reanimated';
 
 import {
   Backdrop,
@@ -10,13 +17,6 @@ import {
   IconContainer,
   Text,
 } from './styles';
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withTiming,
-} from 'react-native-reanimated';
 
 interface IProps {
   title: string;

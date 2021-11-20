@@ -7,12 +7,14 @@ import {
 } from '@react-navigation/stack';
 
 import Home from '@screens/Home';
+import Settings from '@screens/Settings';
 import QuizConfiguration from '@screens/QuizConfiguration';
 import Quiz from '@screens/Quiz';
 import QuizResume from '@screens/QuizResume';
 
 export type RootStackParamList = {
   Home: undefined;
+  Settings: undefined;
   QuizConfiguration: undefined;
   Quiz: {
     quantity: string;
@@ -36,6 +38,7 @@ const MainStack: React.FC = () => {
     <NavigationContainer>
       <Navigator detachInactiveScreens={false} screenOptions={screenOptions}>
         <Screen name="Home" component={Home} />
+        <Screen name="Settings" component={Settings} />
         <Screen name="QuizConfiguration" component={QuizConfiguration} />
         <Screen name="Quiz" component={Quiz} />
         <Screen name="QuizResume" component={QuizResume} />
