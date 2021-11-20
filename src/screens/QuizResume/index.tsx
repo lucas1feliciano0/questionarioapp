@@ -14,6 +14,8 @@ type QuizResumeScreenNavigationProp = StackNavigationProp<
 
 import CardBackground from '@assets/svg/card-bg.svg';
 
+import useBackListener from '@hooks/useBackListener';
+
 import {
   Container,
   Illustration,
@@ -104,6 +106,11 @@ const QuizResume: React.FC = () => {
       isCorrect={item.isCorrect}
     />
   );
+
+  useBackListener(() => {
+    handleBackToHome();
+    return true;
+  });
 
   return (
     <Container>

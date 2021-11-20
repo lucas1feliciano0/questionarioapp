@@ -16,6 +16,7 @@ import {
   AcceptModal,
   Alternative,
   AlternativeContainer,
+  AnimatedView,
   Button,
   Container,
   Footer,
@@ -25,6 +26,7 @@ import {
   QuestionIndicator,
   Text,
 } from './styles';
+import {AnimatePresence} from 'framer-motion';
 
 interface IProps {
   route: QuizScreenRouteProp;
@@ -142,48 +144,50 @@ const Quiz: React.FC<IProps> = ({route}) => {
         activeIndicator={activeQuestionIndex}
         number={parseInt(quantity, 10)}
       />
-      {activeQuestion && (
-        <>
-          <QuestionContainer>
-            <Markdown
-              style={{
-                body: {
-                  color: 'white',
-                  fontSize: 20,
-                  fontFamily: 'Lemon-Medium',
-                },
-              }}>
-              {activeQuestion.question}
-            </Markdown>
-            <AlternativeContainer
-              selectedIndex={selectedAlternative}
-              onChange={index => {
-                if (!showAnswer) {
-                  setSelectedAlternative(index);
-                }
-              }}>
-              {renderAlternatives()}
-            </AlternativeContainer>
-          </QuestionContainer>
-          <Footer>
-            {activeQuestionIndex + 1 === questions.length ? (
-              <Button
-                disabled={selectedAlternative === undefined}
-                onPress={handleSubmit}
-                appearance="filled">
-                {showAnswer ? 'Finish' : 'Validate'}
-              </Button>
-            ) : (
-              <Button
-                disabled={selectedAlternative === undefined}
-                onPress={handleSubmit}
-                appearance="filled">
-                {showAnswer ? 'Next' : 'Validate'}
-              </Button>
-            )}
-          </Footer>
-        </>
-      )}
+      <AnimatePresence exitBeforeEnter>
+        {activeQuestion && (
+          <AnimatedView key={activeQuestion.question}>
+            <QuestionContainer>
+              <Markdown
+                style={{
+                  body: {
+                    color: 'white',
+                    fontSize: 20,
+                    fontFamily: 'Lemon-Medium',
+                  },
+                }}>
+                {activeQuestion.question}
+              </Markdown>
+              <AlternativeContainer
+                selectedIndex={selectedAlternative}
+                onChange={index => {
+                  if (!showAnswer) {
+                    setSelectedAlternative(index);
+                  }
+                }}>
+                {renderAlternatives()}
+              </AlternativeContainer>
+            </QuestionContainer>
+            <Footer>
+              {activeQuestionIndex + 1 === questions.length ? (
+                <Button
+                  disabled={selectedAlternative === undefined}
+                  onPress={handleSubmit}
+                  appearance="filled">
+                  {showAnswer ? 'Finish' : 'Validate'}
+                </Button>
+              ) : (
+                <Button
+                  disabled={selectedAlternative === undefined}
+                  onPress={handleSubmit}
+                  appearance="filled">
+                  {showAnswer ? 'Next' : 'Validate'}
+                </Button>
+              )}
+            </Footer>
+          </AnimatedView>
+        )}
+      </AnimatePresence>
     </Container>
   );
 };

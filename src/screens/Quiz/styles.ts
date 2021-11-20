@@ -5,6 +5,22 @@ import {
   Button as EvaButton,
   RadioGroup,
 } from '@ui-kitten/components';
+import {View as MotiView} from 'moti';
+
+const animationConfig = {
+  from: {
+    translateX: 100,
+    opacity: 0,
+  },
+  to: {
+    translateX: 0,
+    opacity: 1,
+  },
+  exit: {
+    opacity: 0,
+    translateX: -200,
+  },
+};
 
 import AcceptModalComponent from '@components/AcceptModal';
 import QuestionIndicatorComponent from '@components/QuestionIndicator';
@@ -61,3 +77,13 @@ export const Footer = styled(Layout).attrs({
 export const AcceptModal = styled(AcceptModalComponent)``;
 
 export const LoadingModal = styled(LoadingModalComponent)``;
+
+export const AnimatedView = styled(MotiView).attrs({
+  from: animationConfig.from,
+  animate: animationConfig.to,
+  exit: animationConfig.exit,
+  transition: {type: 'timing'},
+})`
+  flex: 1;
+  width: 100%;
+`;
