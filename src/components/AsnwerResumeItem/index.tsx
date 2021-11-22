@@ -14,12 +14,8 @@ import {
 import {LayoutAnimation} from 'react-native';
 
 interface IProps {
-  selectedQuestion: {
-    title: string;
-  };
-  correctQuestion: {
-    title: string;
-  };
+  selectedQuestion: string;
+  correctQuestion: string;
   isCorrect?: boolean;
   style?: [];
 }
@@ -64,7 +60,7 @@ const AsnwerResumeItem: React.FC<IProps> = ({
               Selected
             </Label>
           </Row>
-          <Text>{selectedQuestion.title}</Text>
+          <Text>{selectedQuestion}</Text>
         </Column>
         <Button onPress={handleToggleOpen} appearance="outline" size="tiny">
           {open ? 'Close' : 'Show correct'}
@@ -83,7 +79,7 @@ const AsnwerResumeItem: React.FC<IProps> = ({
               Correct
             </Label>
           </Row>
-          <Text>{correctQuestion.title}</Text>
+          <Text>{correctQuestion}</Text>
         </CorrectAnswerContainer>
       )}
     </Container>

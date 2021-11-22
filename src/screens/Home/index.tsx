@@ -4,6 +4,8 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 
+import {Quiz} from '../../../types';
+
 import {RootState} from '@store/ducks';
 
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -27,19 +29,12 @@ import {
   Title,
 } from './styles';
 
-type PLACEHOLDER_ITEM = {
-  description: string;
-};
-
 const Home: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const theme = useTheme();
 
   const name = useSelector((state: RootState) => state.user.name);
-
-  const PLACEHOLDER_DATA: PLACEHOLDER_ITEM[] = new Array(4).fill({
-    description: 'Description for Item',
-  });
+  const lastQuizzes = useSelector((state: RootState) => state.quiz.lastQuizzes);
 
   const renderQuizAccessory = () => <Button size="tiny">OPEN</Button>;
 
@@ -51,22 +46,25 @@ const Home: React.FC = () => {
     navigation.navigate('Settings');
   }
 
-  const renderQuiz = ({
-    item,
-    index,
-  }: {
-    item: {description: string};
-    index: number;
-  }) => (
-    <ListItem
-      title={`Quiz ${index + 1}`}
-      description={`${item.description} ${index + 1}`}
-      accessoryLeft={props => (
-        <Icon {...props} name="checkmark-circle-2-outline" />
-      )}
-      accessoryRight={renderQuizAccessory}
-    />
-  );
+  const renderQuiz = ({item, index}: {item: Quiz; index: number}) => {
+    console.log(item);
+    const totalQuestions = item.questions.length;
+    const correctQuestions =
+      item.questions.filter(
+        question => question.correct_answer === question.selectedAnwser,
+      ) || 0;
+
+    return (
+      <ListItem
+        title={`Quiz ${index + 1}`}
+        description={`${correctQuestions.length}/${totalQuestions}`}
+        accessoryLeft={props => (
+          <Icon {...props} name="checkmark-circle-2-outline" />
+        )}
+        accessoryRight={renderQuizAccessory}
+      />
+    );
+  };
 
   return (
     <Container>
@@ -99,7 +97,7 @@ const Home: React.FC = () => {
         Last quizzes
       </Title>
       <QuizzesList
-        data={PLACEHOLDER_DATA}
+        data={lastQuizzes}
         renderItem={renderQuiz}
         ItemSeparatorComponent={Divider}
       />

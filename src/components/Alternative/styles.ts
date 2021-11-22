@@ -45,3 +45,5 @@ export const Container = styled(Radio)<{
       props.correct,
     )};
 `;
+
+export const Touchable = styled.Pressable``;

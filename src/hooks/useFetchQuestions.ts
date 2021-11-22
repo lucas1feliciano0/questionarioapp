@@ -2,11 +2,7 @@ import {useState, useEffect} from 'react';
 
 import api from '@services/api';
 
-export type Question = {
-  question: string;
-  correct_answer: string;
-  incorrect_answers: string[];
-};
+import {Question} from '../../types';
 
 function useFetchQuestions(quantity: string) {
   const [loading, setLoading] = useState(false);

@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
+import {useDispatch} from 'react-redux';
+
+import {Creators} from '@store/ducks/quiz';
 
 import {StackNavigationProp} from '@react-navigation/stack';
 
@@ -23,6 +26,7 @@ import {
 } from './styles';
 
 const QuizConfiguration: React.FC = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation<QuizConfScreenNavigationProp>();
 
   const [quantity, setQuantity] = useState<string>('');
@@ -42,7 +46,8 @@ const QuizConfiguration: React.FC = () => {
     setQuantity(newValue);
   }
 
-  function handleNavigateToQuiz() {
+  function handleStartQuiz() {
+    dispatch(Creators.startQuiz());
     setShowResume(false);
     navigation.navigate('Quiz', {
       quantity,
@@ -64,7 +69,7 @@ const QuizConfiguration: React.FC = () => {
         title="Resume"
         subtitle={`${quantity} questions`}
         onCancel={() => setShowResume(false)}
-        onAccept={handleNavigateToQuiz}
+        onAccept={handleStartQuiz}
       />
       <Header>
         <Text category="h5">Start new quiz</Text>

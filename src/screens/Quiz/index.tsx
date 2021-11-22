@@ -2,14 +2,18 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {RouteProp, useNavigation} from '@react-navigation/core';
 import Markdown from 'react-native-markdown-display';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useDispatch} from 'react-redux';
 
+import {Alternative as AlternativeProps, Question} from '../../../types';
+
+import {Creators} from '@store/ducks/quiz';
 import {RootStackParamList} from '@routes/MainStack';
 
 type QuizScreenRouteProp = RouteProp<RootStackParamList, 'Quiz'>;
 
 type QuizScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Quiz'>;
 
-import useFetchQuestions, {Question} from '@hooks/useFetchQuestions';
+import useFetchQuestions from '@hooks/useFetchQuestions';
 import useBackListener from '@hooks/useBackListener';
 
 import {
@@ -33,13 +37,12 @@ interface IProps {
 }
 
 const Quiz: React.FC<IProps> = ({route}) => {
+  const dispatch = useDispatch();
   const navigation = useNavigation<QuizScreenNavigationProp>();
 
-  const [selectedAlternative, setSelectedAlternative] = useState<
-    number | undefined
-  >();
+  const [selectedAlternative, setSelectedAlternative] = useState<number>();
 
-  const [activeQuestion, setActiveQuestion] = useState<Question | null>(null);
+  const [activeQuestion, setActiveQuestion] = useState<Question>();
   const [activeQuestionIndex, setActiveQuestionIndex] = useState<number>(0);
 
   const [showAnswer, setShowAnswer] = useState(false);
@@ -49,19 +52,26 @@ const Quiz: React.FC<IProps> = ({route}) => {
 
   const {loading, questions} = useFetchQuestions(quantity);
 
+  function shuffleAlternatives(alternativesToShuffle: AlternativeProps[]) {
+    const alternatives = alternativesToShuffle.sort(() => 0.5 - Math.random());
+
+    return alternatives;
+  }
+
   const alternatives = useMemo(() => {
     if (activeQuestion) {
-      const formattedAlternatives = [
-        ...activeQuestion.incorrect_answers.map(item => ({
+      const incorrectAnswers =
+        activeQuestion?.incorrect_answers?.map(item => ({
           title: item,
           correct: false,
-        })),
+        })) || [];
+
+      const formattedAlternatives: AlternativeProps[] = [
+        ...incorrectAnswers,
         {title: activeQuestion.correct_answer, correct: true},
       ];
-      const shuffledAlternatives = formattedAlternatives.sort(
-        () => 0.5 - Math.random(),
-      );
-      return shuffledAlternatives;
+
+      return shuffleAlternatives(formattedAlternatives);
     }
   }, [activeQuestion]);
 
@@ -75,6 +85,18 @@ const Quiz: React.FC<IProps> = ({route}) => {
           showAnswer={showAnswer}
         />
       ));
+    }
+  }
+
+  function handleAnswerQuestion() {
+    if (activeQuestion && alternatives && selectedAlternative !== undefined) {
+      const answeredQuestion: Question = {
+        question: activeQuestion.question,
+        correct_answer: activeQuestion.correct_answer,
+        selectedAnwser: alternatives[selectedAlternative].title,
+      };
+
+      dispatch(Creators.addQuestion(answeredQuestion));
     }
   }
 
@@ -92,6 +114,8 @@ const Quiz: React.FC<IProps> = ({route}) => {
 
   function handleSubmit() {
     if (showAnswer) {
+      console.log('Answering question...', activeQuestion);
+      handleAnswerQuestion();
       handleNextQuestion();
     } else {
       setShowAnswer(true);
