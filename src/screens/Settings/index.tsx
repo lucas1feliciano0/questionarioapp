@@ -36,9 +36,11 @@ const Settings: React.FC = () => {
     setshowDeleteConfirmation(true);
   }
 
-  function handleDelete() {
+  function handleReset() {
+    dispatch({
+      type: 'RESET',
+    });
     setshowDeleteConfirmation(false);
-    //TODO: implement delete all data
   }
 
   return (
@@ -48,7 +50,7 @@ const Settings: React.FC = () => {
         title="Delete data"
         subtitle="Are you sure you want to delete all your data?"
         onCancel={() => setshowDeleteConfirmation(false)}
-        onAccept={handleDelete}
+        onAccept={handleReset}
         iconName="alert-triangle-outline"
         acceptText="Yes, delete"
       />

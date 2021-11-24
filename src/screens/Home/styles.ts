@@ -2,6 +2,8 @@ import styled from 'styled-components/native';
 import {Layout, List, Text as EvaText} from '@ui-kitten/components';
 
 import QuizIllustration from '@assets/svg/quiz.svg';
+import {Quiz} from '../../../types';
+import {FlatListProps} from 'react-native';
 
 export const Container = styled(Layout)`
   flex: 1;
@@ -22,7 +24,7 @@ export const Header = styled(Layout).attrs({
   border-radius: ${props => props.theme.constants.BORDER_RADIUS.large}px;
 `;
 
-export const QuizzesList = styled(List)`
+export const QuizzesList = styled(List)<FlatListProps<Quiz>>`
   max-height: 100%;
   border-radius: ${props => props.theme.constants.BORDER_RADIUS.large}px;
 `;

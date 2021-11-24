@@ -3,12 +3,11 @@ import {Button, Divider, Icon, ListItem, useTheme} from '@ui-kitten/components';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import {Quiz} from '../../../types';
 
 import {RootState} from '@store/ducks';
-
-import {StackNavigationProp} from '@react-navigation/stack';
 
 import {RootStackParamList} from '@routes/MainStack';
 
@@ -28,6 +27,7 @@ import {
   TextContainer,
   Title,
 } from './styles';
+import {ListRenderItemInfo} from 'react-native';
 
 const Home: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
@@ -50,7 +50,7 @@ const Home: React.FC = () => {
     });
   }
 
-  const renderQuiz = ({item, index}: {item: Quiz; index: number}) => {
+  const renderQuiz = ({item, index}: ListRenderItemInfo<Quiz>) => {
     const totalQuestions = item.questions.length;
     const correctQuestions =
       item.questions.filter(
@@ -104,7 +104,7 @@ const Home: React.FC = () => {
         Last quizzes
       </Title>
       <QuizzesList
-        data={lastQuizzes}
+        data={lastQuizzes.reverse()}
         renderItem={renderQuiz}
         ItemSeparatorComponent={Divider}
       />
