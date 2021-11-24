@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import * as eva from '@eva-design/eva';
 import {
   ApplicationProvider,
@@ -13,6 +13,7 @@ import {Platform, StatusBar, UIManager} from 'react-native';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import Toast from 'react-native-toast-message';
+import RNBootSplash from 'react-native-bootsplash';
 
 import constantsTheme from '@constants/index';
 
@@ -31,6 +32,10 @@ if (Platform.OS === 'android') {
 
 const App = () => {
   const themeContext = useTheme();
+
+  useEffect(() => {
+    RNBootSplash.hide({fade: true});
+  }, []);
 
   return (
     <Provider store={store}>
