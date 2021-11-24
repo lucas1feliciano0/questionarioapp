@@ -7,6 +7,8 @@ import {
 } from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
 
+import {Quiz as QuizProps} from '../../types';
+
 import Introduction from '@screens/Introduction';
 import Home from '@screens/Home';
 import Settings from '@screens/Settings';
@@ -24,7 +26,9 @@ export type RootStackParamList = {
   Quiz: {
     quantity: string;
   };
-  QuizResume: undefined;
+  QuizResume: {
+    quiz: QuizProps | null;
+  };
 };
 
 const {Navigator, Screen, Group} = createStackNavigator<RootStackParamList>();

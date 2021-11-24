@@ -36,8 +36,6 @@ const Home: React.FC = () => {
   const name = useSelector((state: RootState) => state.user.name);
   const lastQuizzes = useSelector((state: RootState) => state.quiz.lastQuizzes);
 
-  const renderQuizAccessory = () => <Button size="tiny">OPEN</Button>;
-
   function handleNavigateToQuiz() {
     navigation.navigate('QuizConfiguration');
   }
@@ -46,8 +44,13 @@ const Home: React.FC = () => {
     navigation.navigate('Settings');
   }
 
+  function handleNavigateToQuizResume(quiz: Quiz) {
+    navigation.navigate('QuizResume', {
+      quiz,
+    });
+  }
+
   const renderQuiz = ({item, index}: {item: Quiz; index: number}) => {
-    console.log(item);
     const totalQuestions = item.questions.length;
     const correctQuestions =
       item.questions.filter(
@@ -61,7 +64,11 @@ const Home: React.FC = () => {
         accessoryLeft={props => (
           <Icon {...props} name="checkmark-circle-2-outline" />
         )}
-        accessoryRight={renderQuizAccessory}
+        accessoryRight={() => (
+          <Button onPress={() => handleNavigateToQuizResume(item)} size="tiny">
+            OPEN
+          </Button>
+        )}
       />
     );
   };

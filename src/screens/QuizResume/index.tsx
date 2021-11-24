@@ -1,15 +1,14 @@
 import React from 'react';
 import {RFValue} from 'react-native-responsive-fontsize';
-import {useNavigation} from '@react-navigation/core';
+import {RouteProp, useNavigation} from '@react-navigation/core';
 import {Divider, useTheme} from '@ui-kitten/components';
-import {useDispatch, useSelector} from 'react-redux';
 import {StackNavigationProp} from '@react-navigation/stack';
 
 import {Question} from '../../../types';
-import {Creators} from '@store/ducks/quiz';
-import {RootState} from '@store/ducks';
 
 import {RootStackParamList} from '@routes/MainStack';
+
+type QuizResumeScreenProps = RouteProp<RootStackParamList, 'QuizResume'>;
 
 type QuizResumeScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -47,22 +46,36 @@ export type AnswerResume = {
   isCorrect?: boolean;
 };
 
-const QuizResume: React.FC = () => {
-  const dispatch = useDispatch();
+export interface ListRenderItemInfo<ItemT> {
+  item: ItemT;
+
+  index: number;
+
+  separators: {
+    highlight: () => void;
+    unhighlight: () => void;
+    updateProps: (select: 'leading' | 'trailing', newProps: any) => void;
+  };
+}
+
+interface IProps {
+  route: QuizResumeScreenProps;
+}
+
+const QuizResume: React.FC<IProps> = ({route}) => {
   const navigation = useNavigation<QuizResumeScreenNavigationProp>();
   const theme = useTheme();
 
-  const activeQuiz = useSelector((state: RootState) => state.quiz.activeQuiz);
-  const totalAnswers = activeQuiz?.questions.length || 0;
+  const quiz = route.params.quiz;
+  const totalAnswers = quiz?.questions.length || 0;
+
   const correctAnswers =
-    activeQuiz?.questions.filter(
+    quiz?.questions.filter(
       question => question.correct_answer === question.selectedAnwser,
     ) || [];
 
   function handleBackToHome() {
     navigation.popToTop();
-
-    dispatch(Creators.finishQuiz());
   }
 
   const renderAnswer = ({item}: {item: Question; index: number}) => (
@@ -123,7 +136,7 @@ const QuizResume: React.FC = () => {
           Answers
         </Title>
         <AsnwerResumeList
-          data={activeQuiz?.questions}
+          data={quiz?.questions}
           renderItem={renderAnswer}
           ItemSeparatorComponent={Divider}
         />

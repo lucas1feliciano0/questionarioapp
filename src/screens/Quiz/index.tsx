@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {RouteProp, useNavigation} from '@react-navigation/core';
 import Markdown from 'react-native-markdown-display';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {Alternative as AlternativeProps, Question} from '../../../types';
 
@@ -31,6 +31,7 @@ import {
   Text,
 } from './styles';
 import {AnimatePresence} from 'framer-motion';
+import {RootState} from '@store/ducks';
 
 interface IProps {
   route: QuizScreenRouteProp;
@@ -39,6 +40,8 @@ interface IProps {
 const Quiz: React.FC<IProps> = ({route}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation<QuizScreenNavigationProp>();
+
+  const activeQuiz = useSelector((state: RootState) => state.quiz.activeQuiz);
 
   const [selectedAlternative, setSelectedAlternative] = useState<number>();
 
@@ -108,13 +111,15 @@ const Quiz: React.FC<IProps> = ({route}) => {
       setShowAnswer(false);
       setSelectedAlternative(undefined);
     } else {
-      navigation.navigate('QuizResume');
+      navigation.navigate('QuizResume', {
+        quiz: activeQuiz,
+      });
+      dispatch(Creators.finishQuiz());
     }
   }
 
   function handleSubmit() {
     if (showAnswer) {
-      console.log('Answering question...', activeQuestion);
       handleAnswerQuestion();
       handleNextQuestion();
     } else {
@@ -169,7 +174,7 @@ const Quiz: React.FC<IProps> = ({route}) => {
         number={parseInt(quantity, 10)}
       />
       <AnimatePresence exitBeforeEnter>
-        {activeQuestion && (
+        {!!activeQuestion && (
           <AnimatedView key={activeQuestion.question}>
             <QuestionContainer>
               <Markdown
