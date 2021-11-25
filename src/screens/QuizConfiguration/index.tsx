@@ -37,7 +37,7 @@ const QuizConfiguration: React.FC = () => {
   function handleChangeValue(newValue: string) {
     const isInteger = Number.isInteger(+newValue);
 
-    if (!isInteger) {
+    if (!isInteger || newValue === '0') {
       setIsValid(false);
     } else {
       setIsValid(true);
