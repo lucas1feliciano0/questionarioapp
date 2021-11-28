@@ -32,19 +32,9 @@ import {
   Row,
   InfoCard,
   InfoContainer,
-  AsnwerResumeItem,
+  AnswerResumeItem,
   AsnwerResumeList,
 } from './styles';
-
-export type AnswerResume = {
-  selectedQuestion: {
-    title: string;
-  };
-  correctQuestion: {
-    title: string;
-  };
-  isCorrect?: boolean;
-};
 
 export interface ListRenderItemInfo<ItemT> {
   item: ItemT;
@@ -79,9 +69,9 @@ const QuizResume: React.FC<IProps> = ({route}) => {
   }
 
   const renderAnswer = ({item}: {item: Question; index: number}) => (
-    <AsnwerResumeItem
-      selectedQuestion={item.selectedAnwser || ''}
-      correctQuestion={item.correct_answer}
+    <AnswerResumeItem
+      selectedAnswer={item.selectedAnwser || ''}
+      correctAnswer={item.correct_answer}
       isCorrect={item.correct_answer === item.selectedAnwser}
     />
   );

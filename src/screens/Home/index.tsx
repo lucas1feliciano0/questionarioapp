@@ -52,7 +52,7 @@ const Home: React.FC = () => {
 
   const renderQuiz = ({item, index}: ListRenderItemInfo<Quiz>) => {
     const totalQuestions = item.questions.length;
-    const correctQuestions =
+    const correctAnswers =
       item.questions.filter(
         question => question.correct_answer === question.selectedAnwser,
       ) || 0;
@@ -60,7 +60,7 @@ const Home: React.FC = () => {
     return (
       <ListItem
         title={`Quiz ${index + 1}`}
-        description={`${correctQuestions.length}/${totalQuestions}`}
+        description={`${correctAnswers.length}/${totalQuestions}`}
         accessoryLeft={props => (
           <Icon {...props} name="checkmark-circle-2-outline" />
         )}

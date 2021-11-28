@@ -14,15 +14,15 @@ import {
 import {LayoutAnimation} from 'react-native';
 
 interface IProps {
-  selectedQuestion: string;
-  correctQuestion: string;
+  selectedAnswer: string;
+  correctAnswer: string;
   isCorrect?: boolean;
   style?: [];
 }
 
-const AsnwerResumeItem: React.FC<IProps> = ({
-  selectedQuestion,
-  correctQuestion,
+const AnswerResumeItem: React.FC<IProps> = ({
+  selectedAnswer,
+  correctAnswer,
   isCorrect,
   style,
 }) => {
@@ -60,7 +60,7 @@ const AsnwerResumeItem: React.FC<IProps> = ({
               Selected
             </Label>
           </Row>
-          <Text>{selectedQuestion}</Text>
+          <Text>{selectedAnswer}</Text>
         </Column>
         <Button onPress={handleToggleOpen} appearance="outline" size="tiny">
           {open ? 'Close' : 'Show correct'}
@@ -79,11 +79,11 @@ const AsnwerResumeItem: React.FC<IProps> = ({
               Correct
             </Label>
           </Row>
-          <Text>{correctQuestion}</Text>
+          <Text>{correctAnswer}</Text>
         </CorrectAnswerContainer>
       )}
     </Container>
   );
 };
 
-export default AsnwerResumeItem;
+export default AnswerResumeItem;

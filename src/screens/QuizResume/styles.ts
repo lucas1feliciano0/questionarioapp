@@ -6,7 +6,7 @@ import {
   Button as EvaButton,
 } from '@ui-kitten/components';
 
-import AsnwerResumeItemComponent from '@components/AsnwerResumeItem';
+import AnswerResumeItemComponent from 'components/AnswerResumeItem';
 
 import WinnerIllustration from '@assets/svg/winner.svg';
 
@@ -54,7 +54,7 @@ export const AsnwerResumeList = styled(List)`
   border-radius: ${props => props.theme.constants.BORDER_RADIUS.large}px;
 `;
 
-export const AsnwerResumeItem = styled(AsnwerResumeItemComponent)``;
+export const AnswerResumeItem = styled(AnswerResumeItemComponent)``;
 
 export const Title = styled(EvaText)`
   margin-bottom: ${props => props.theme.constants.PADDING.small}px;
