@@ -6,7 +6,7 @@ import {
   Button as EvaButton,
 } from '@ui-kitten/components';
 
-import AnswerResumeItemComponent from 'components/AnswerResumeItem';
+import AnswerResumeItemComponent from '@components/AnswerResumeItem';
 
 import WinnerIllustration from '@assets/svg/winner.svg';
 
